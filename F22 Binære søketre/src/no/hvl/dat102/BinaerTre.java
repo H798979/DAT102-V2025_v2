@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import no.hvl.dat102.lenketstabel.LenketStabel;
 import no.hvl.dat102.lenketstabel.StabelADT;
 
-public class BinaerTre<T> implements BinaerTreADT<T>, Iterable<T> {
+public class BinaerTre<T extends Comparable<T>> implements BinaerTreADT<T>, Iterable<T> {
 	private BinaerTreNode<T> rot;
 
 	public BinaerTre() {
@@ -281,4 +281,48 @@ public class BinaerTre<T> implements BinaerTreADT<T>, Iterable<T> {
 			rot.setHogre(hogre.rot);
 		}
 	}
+
+	public void skrivVerdier(T nedre, T ovre) {
+		skrivVerdierRek(rot, nedre, ovre);
+		}
+		private void skrivVerdierRek(BinaerTreNode<T> t, T min, T maks) {
+			if (t == null) return;
+
+			if (t.getElement().compareTo(min) > 0) {
+				skrivVerdierRek(t.getVenstre(), min, maks);
+			}
+
+			if (t.getElement().compareTo(min) >= 0 && t.getElement().compareTo(maks) <= 0) {
+				System.out.println(t.getElement() + " ");
+			}
+
+			if (t.getElement().compareTo(maks) < 0) {
+				skrivVerdierRek(t.getHogre(), min, maks);
+			}
+		}
+
+		public boolean erBalansert (BinaerTreNode<T> node) {
+
+			//itarator vinnur sig i gegnum noturnar vinstri get next niður og endar með hæðina af vinstri
+			// nota "underTre"
+			// sama svo með hægri
+
+			//svo ef (if) einn hliðin er meira enn 1 hærri = ekki balansert
+
+			if (node == null) return false;
+
+			int hV = node.getVenstre() != null ? node.getVenstre().getHoyde() : 0;
+			int hH = node.getHogre() != null ? node.getHogre().getHoyde() : 0;
+
+			int diff = hV - hH; 
+			if (diff < 1) {
+				return true;
+			}
+			return false;
+
+
+
+		}
+
+
 }

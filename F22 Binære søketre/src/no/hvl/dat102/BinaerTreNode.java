@@ -4,6 +4,7 @@ public class BinaerTreNode<T>{
     private T element;    
     private BinaerTreNode<T> venstre;
     private BinaerTreNode<T>  hogre;
+	private int Hoyde;
     
     BinaerTreNode (T el) {
     	element = el;
@@ -47,5 +48,13 @@ public class BinaerTreNode<T>{
 	
 	public boolean erLoev() {
 		return (venstre == null) && (hogre == null);
+	}
+
+	public int getHoyde() {
+		return Hoyde;
+	}
+
+	public void setHoyde (int Hoyde) {
+		this.Hoyde = Hoyde;
 	}
 }
